@@ -1,5 +1,4 @@
 language: node_js
-android: -7
-
-script:
-  - npm run test
+node_js:
+  script:
+    - npm run test
