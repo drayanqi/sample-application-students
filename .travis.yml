@@ -1,17 +1,14 @@
-matrix:
-  include:
-    - language: node_js
-    node_js:
-      before_script:
-        - cd ./sample-application-frontend
-      script:
-        - npm run test
-        
-    - language: java
-      jdk: oraclejdk11
-      java:
-        before_script:
-          - cd ./sample-application-backend
-        script : 
-          - mvn clean verify
+# language: node_js
+# node_js:
+#   before_script:
+#     - cd ./sample-application-frontend
+#   script:
+#     - npm run test
 
+language: java
+jdk: oraclejdk11
+java:
+  before_script:
+    - cd ./sample-application-backend
+  script:
+    - mvn clean verify
