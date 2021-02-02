@@ -16,7 +16,7 @@ jobs:
           - cd sample-application-frontend
         script:
           - npm run test
-# cache:
-#   directories:
-#     - "$HOME/.m2/repository"
-#     - "$HOME/.npm"
+cache:
+  directories:
+    - 'D:\libs\apache-maven-3.6.3\apache-maven\src\bin'
+    - 'D:\programs'
