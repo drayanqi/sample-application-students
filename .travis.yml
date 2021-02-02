@@ -10,7 +10,7 @@ jobs:
       script : 
         - mvn clean verify
     - stage: "Build and Test Nodejs"
-        language: node.js
+        language: node_js
         node_js: "12.20"
         before_script:
           - cd sample-application-frontend
