@@ -1,2 +1,5 @@
-mvn clean verify --file ./sample-application-backend/pom.xml
-npm run test
+language: node_js
+android: -7
+
+script:
+  - npm run test
