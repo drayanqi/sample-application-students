@@ -1,14 +1,18 @@
-# language: node_js
-# node_js:
-#   before_script:
-#     - cd ./sample-application-frontend
-#   script:
-#     - npm run test
-
-language: java
-jdk: oraclejdk11
-java:
-  before_script:
-    - cd ./sample-application-backend
-  script:
-    - mvn clean verify
+git:
+  depth: 5
+jobs:
+  include:
+    - stage: "Build and Test Java"
+      language: java
+      jdk: oraclejdk11
+      before_script:
+        - cd sample-application-backend
+    - stage: "Build and Test Nodejs"
+        language: node.js
+        node_js: "12.20"
+        before_script:
+          - cd sample-application-frontend
+cache:
+  directories:
+    - "$HOME/.m2/repository"
+    - "$HOME/.npm"
