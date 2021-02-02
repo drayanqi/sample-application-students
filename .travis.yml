@@ -16,7 +16,7 @@ jobs:
           - cd sample-application-frontend
         script:
           - npm run test
-cache:
-  directories:
-    - "$HOME/.m2/repository"
-    - "$HOME/.npm"
+# cache:
+#   directories:
+#     - "$HOME/.m2/repository"
+#     - "$HOME/.npm"
