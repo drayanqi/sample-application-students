@@ -10,12 +10,12 @@ jobs:
       script : 
         - mvn clean verify
     - stage: "Build and Test Nodejs"
-        language: node_js
-        node_js: "12.20"
-        before_script:
-          - cd sample-application-frontend
-        script:
-          - npm run test
+      language: node_js
+      node_js: "12.20"
+      before_script:
+        - cd sample-application-frontend
+      script:
+        - npm run test
 cache:
   directories:
     - 'D:\libs\apache-maven-3.6.3\apache-maven\src\bin'
