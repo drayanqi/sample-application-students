@@ -8,7 +8,7 @@ jobs:
     before_script:
     - cd sample-application-backend
     script:
-    - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=devops-2021
+    - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=sample-application-students
 
   - stage: Build and Test Nodejs
     language: node_js
@@ -52,5 +52,5 @@ services:
 
 addons:
   sonarcloud:
-    organization: "devops-cpe"
+    organization: "drayanqi"
     token: "$SONARCLOUD_TOKEN"
