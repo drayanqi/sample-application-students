@@ -2,23 +2,23 @@ git:
   depth: 5
 jobs:
   include:
-  - stage: Build and Test Java
-    language: java
-    jdk: oraclejdk11
-    before_script:
-    - cd sample-application-backend
-    script:
-    - mvn clean verify
-  - stage: Build and Test Nodejs
-    language: node_js
-    node_js: '12.20'
-    before_script:
-    - cd sample-application-frontend
-    script:
-    - echo "npm install ..."
-    - npm install
-    - echo "npm run test ..."
-    - npm run test
+  # - stage: Build and Test Java
+  #   language: java
+  #   jdk: oraclejdk11
+  #   before_script:
+  #   - cd sample-application-backend
+  #   script:
+  #   - mvn clean verify
+  # - stage: Build and Test Nodejs
+  #   language: node_js
+  #   node_js: '12.20'
+  #   before_script:
+  #   - cd sample-application-frontend
+  #   script:
+  #   - echo "npm install ..."
+  #   - npm install
+  #   - echo "npm run test ..."
+  #   - npm run test
   - stage: 'Package : Docker'
     services:
       - docker
