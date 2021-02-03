@@ -29,8 +29,9 @@ jobs:
     - docker-compose build
     - echo "Logging in to docker ... $DOCKER_LOGIN"
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
-    - echo "docker-compose push ..."
-    - docker-compose push
+    - echo "docker push images..."
+    - docker push drayanqi/frontend
+    - docker push drayanqi/backend
 cache:
   directories:
   - "$HOME/.m2/repository"
