@@ -2,23 +2,23 @@ git:
   depth: 5
 jobs:
   include:
-  # - stage: Build and Test Java
-  #   language: java
-  #   jdk: oraclejdk11
-  #   before_script:
-  #   - cd sample-application-backend
-  #   script:
-  #   - mvn clean verify
-  # - stage: Build and Test Nodejs
-  #   language: node_js
-  #   node_js: '12.20'
-  #   before_script:
-  #   - cd sample-application-frontend
-  #   script:
-  #   - echo "npm install ..."
-  #   - npm install
-  #   - echo "npm run test ..."
-  #   - npm run test
+  - stage: Build and Test Java
+    language: java
+    jdk: oraclejdk11
+    before_script:
+    - cd sample-application-backend
+    script:
+    - mvn clean verify
+  - stage: Build and Test Nodejs
+    language: node_js
+    node_js: '12.20'
+    before_script:
+    - cd sample-application-frontend
+    script:
+    - echo "npm install ..."
+    - npm install
+    - npm run test
+    - npm run lint
   - stage: Docker
     services:
       - docker
@@ -30,7 +30,6 @@ jobs:
     - echo "Logging in to docker ... $DOCKER_LOGIN"
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
     - echo "docker push images..."
-    - docker push drayanqi/frontend
     - docker push drayanqi/backend
 cache:
   directories:
