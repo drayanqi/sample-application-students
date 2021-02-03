@@ -8,7 +8,7 @@ jobs:
     before_script:
     - cd sample-application-backend
     script:
-    - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=sample-application-students
+    - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=drayanqi_sample-application-students
 
   - stage: Build and Test Nodejs
     language: node_js
