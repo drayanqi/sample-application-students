@@ -20,13 +20,15 @@ jobs:
     - echo "npm run test ..."
     - npm run test
   - stage: 'Package : Docker'
+    services:
+      - docker
     before_script:
     - cd sample-application-backend
     script:
     - echo "Docker build ..."
     - docker-compose build
     - echo "Logging in to docker ... $DOCKERPWD"
-    - echo $DOCKERPWD | docker login --username $DOCKERLOGIN --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
     - echo "docker-compose push ..."
     - docker-compose push
 cache:
