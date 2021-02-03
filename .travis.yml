@@ -27,7 +27,7 @@ jobs:
     script:
     - echo "Docker build ..."
     - docker-compose build
-    - echo "Logging in to docker ... $DOCKERPWD"
+    - echo "Logging in to docker ... $DOCKER_LOGIN"
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
     - echo "docker-compose push ..."
     - docker-compose push
