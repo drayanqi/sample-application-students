@@ -19,7 +19,7 @@ Simple Postgres 9 Database
 - added npm test script in package.json
 - added repo on travis via sso
 
-here is the travis.yml file :
+here is what the actual travis.yml file looks like :
 
 ```
 git:
@@ -45,3 +45,5 @@ cache:
     - "$HOME/.m2/repository"
     - "$HOME/.npm"
 ```
+
+### Allow Travis acces on github repo via token

@@ -2,21 +2,39 @@ git:
   depth: 5
 jobs:
   include:
-    - stage: "Build and Test Java"
-      language: java
-      jdk: oraclejdk11
-      before_script:
-        - cd sample-application-backend
-      script : 
-        - mvn clean verify
-    - stage: "Build and Test Nodejs"
-      language: node_js
-      node_js: "12.20"
-      before_script:
-        - cd sample-application-frontend
-      script:
-        - npm run test
+  - stage: Build and Test Java
+    language: java
+    jdk: oraclejdk11
+    before_script:
+    - cd sample-application-backend
+    script:
+    - mvn clean verify
+  - stage: Build and Test Nodejs
+    language: node_js
+    node_js: '12.20'
+    before_script:
+    - cd sample-application-frontend
+    script:
+    - echo "npm install ..."
+    - npm install
+    - echo "npm run test ..."
+    - npm run test
+
+  - stage: "Package : Docker"
+    before_script:
+      - cd sample-application-backend
+    script:
+      - echo "Docker build ..."
+      - docker-compose build
+      - echo "Logging in to docker ..."
+      - echo "$DOCKERPWD" | docker login -u "$DOCKERLOGIN" --password-stdin
+      - echo "docker-compose push ..."
+      - docker-compose push
 cache:
   directories:
-    - "$HOME/.m2/repository"
-    - "$HOME/.npm"
+  - "$HOME/.m2/repository"
+  - "$HOME/.npm"
+env:
+  global:
+  - secure: 0pLXvbGHL7U2WftWfTYxa1jzUnfEKQwZQQfY7jGDEbOc9jEdhrrogFL/LbbEkbDDvruJNOPgAeU3sr/XOh8Rrd264iElzSSO5R0oPGnpekgcwPxAE6EcYqVYoN7eneWSaG/Hjewo4OzCpsppOATKBeNaPLiTZwSMUZOzImgy0GUFyJtsTjCXW02iKVH32DbpsTdM0kmqrhTlZboUGF2NO8o2y4cYHkG9Fa1P8RhaMTvWc8qdhEtlc6OVIrWi47fEKWc+axHngktzaSVagvHapsjKADaMqKtCWRReAvzh0Ijo51FpElUnrkx7K6vbNDco/gwaaL2cKd2o918gQwEAchipwOl2dM/hJqQtP6uPfI7tfRhJH0o8VByBNKOGUp0lj0HiAl7bxB18kTg7UXv2/Gm6XYMJ2JBeAaKCB9skckyeafYUmTiLQe0sko+PyU4EyzZvw4vcbrM3bLjvwHRFbXB96eK6eejUL+Rp6yPMRZV/CfSmgXkAwjtVCyBKgkkAnkv8yAKXa1yE3fSC+W04bNETt1zuPcK+kgPjAaZFwglp0xWNfpQmjjOjfy03G+9fnHY6Qahhwf4h4kqvxn8YUfrwvuj3PT7RUPFtpw7sxD/uKhlNYekyQSYJHVyKBmhYPcyOwlk9YpxS3TlimF97Ria+KF7a/qbmFUUHy7cHzik=
+  - secure: uKfO3/mC1l0mVPDQgfV6dZCvJpHGKUnLA5ylYUIYeCQT5PXxFajMPGpbL9okuqzP+nLCfdkLu+HJSuuwTlzTWk6MKXeUTCAAKXipWG/NG3KcMT/LYcf+5aGnE+Su4zkB0xuCvDrDQeKJ9y7khSVmiTjXQEtZ8C9JXBspRhtQLh8boJNVLYRVpVBekPizM8QcReTfOvQy3VLe6I9mr8VXzDA81rugwqDNyV8O7tPefwEbu8PA68JTE9VJ3sNYqaHc9d+E6KpypsweTZBvMEsIqOYbDxb/QNspnOfqmnV6VW7n/afV6uCNFykHT3cAMtfTuDm/HWhCedjkPmEjJCDkLxxdYZ7lJ8H4nGMK3zhd/FMgZ46i8YmA5kxulMqR96GaleCRPD5lZ4HcNgPzyEOA39BBUqiIh3S/YmTS0IhvtyrtkQvmxBaXxXtvckLPPgAcNtRPq37nmt6VI2MKn+GQevJvo58EaA0RG2bsmwadyTxWrUI0QVZH3cB1s8d3GgcSxpqOVKNT07waJ6R9J+I3Quxi1I+LzvUfWNy/JXVcOZYb/LuGJsWaRhXOu/eRAb+A9U88G9xHHr7F0E+4EelYYoXiimKxpKQO7xgVj5Q01TACV1ZAsH72l7c0wXebN/ujUQfDz3E6kV/skYGmX0r7kEWVdTYOTgaGs1gEJOWvW7I=

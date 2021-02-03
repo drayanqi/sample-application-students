@@ -12,7 +12,7 @@ node_modules
 .settings
 .springBeans
 .sts4-cache
-
+.travis-e
 ### IntelliJ IDEA ###
 .idea
 *.iws
