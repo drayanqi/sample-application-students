@@ -8,7 +8,7 @@ COPY package.json .
 COPY package-lock.json* .
 COPY httpd.conf .
 
-RUN npm install
+#RUN npm install --> done in travis
 RUN npm run build
 
 FROM httpd:2.4
