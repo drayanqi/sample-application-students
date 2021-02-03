@@ -19,6 +19,9 @@ jobs:
     - npm install
     - npm run test
     - npm run lint
+    - docker build  -t $DOCKER_LOGIN/frontend .
+    - docker 
+
   - stage: Docker
     services:
       - docker
@@ -26,11 +29,11 @@ jobs:
     - cd sample-application-backend
     script:
     - echo "Docker build ..."
-    - docker-compose build
+    - docker build  -t $DOCKER_LOGIN/backend .
     - echo "Logging in to docker ... $DOCKER_LOGIN"
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
     - echo "docker push images..."
-    - docker push drayanqi/backend
+    - docker push $DOCKER_LOGIN/backend
 cache:
   directories:
   - "$HOME/.m2/repository"
