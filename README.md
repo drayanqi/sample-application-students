@@ -59,25 +59,58 @@ use pro if connecting to travis.com instead of .org
 
 ### Creating secured variables
 
-To create secured variables, ruby must be installed.
+To create secured variables, the best way is to do so from the travis console, in the settings tab of your project.
 
-env variables can be created like so :
-
-```
-env:
-  global:
-    - secure: mcUCykGm4bUZ3CaW6AxrIMFzuAYjA98VIz6YmYTmM0/8sp/B/54JtQS/j0ehCD6B5BwyW6diVcaQA2c7bovI23GyeTT+TgfkuKRkzDcoY51ZsMDdsflJ94zV7TEIS31eCeq42IBYdHZeVZp/L7EXOzFjVmvYhboJiwnsPybpCfpIH369fjYKuVmutccD890nP8Bzg8iegssVldgsqDagkuLy0wObAVH0FKnqiIPtFoMf3mDeVmK2AkF1Xri1edsPl4wDIu1Ko3RCRgfr6NxzuNSh6f4Z6zmJLB4ONkpb3fAa9Lt+VjJjdSjCBT1OGhJdP7NlO5vSnS5TCYvgFqNSXqqJx9BNzZ9/esszP7DJBe1yq1aNwAvJ7DlSzh5rvLyXR4VWHXRIR3hOWDTRwCsJQJctCLpbDAFJupuZDcvqvPNj8dY5MSCu6NroXMMFmxJHIt3Hdzr+hV9RNJkQRR4K5bR+ewbJ/6h9rjX6Ot6kIsjJkmEwx1jllxi4+gSRtNQ/O4NCi3fvHmpG2pCr7Jz0+eNL2d9wm4ZxX1s18ZSAZ5XcVJdx8zL4vjSnwAQoFXzmx0LcpK6knEgw/hsTFovSpe5p3oLcERfSd7GmPm84Qr8U4YFKXpeQlb9k5BK9MaQVqI4LyaM2h4Xx+wc0QlEQlUOfwD4B2XrAYXFIq1PAEic=
-  jobs:
-    - USE_NETWORK=true
-    - USE_NETWORK=false
-    - secure: <you can also put encrypted vars inside matrix>
-```
-
-The only secured way is to use secured variables :
+Actual travis configuration : variavles are used like so `$MY_VAR`
 
 ```
-travis encrypt MY_SECRET_ENV=super_secret --add [env.global]
+git:
+  depth: 5
+jobs:
+  include:
+  - stage: Build And Test JAVA
+    language: java
+    jdk: oraclejdk11
+    before_script:
+    - cd sample-application-backend
+    script:
+    - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=devops-2021
+
+  - stage: Build and Test Nodejs
+    language: node_js
+    node_js: '12.20'
+    before_script:
+    - cd sample-application-frontend
+    script:
+    - echo "npm install ..."
+    - npm run lint
+    - npm install
+    - npm run test
+
+  - stage: Build and push Frontend Image
+    before_script:
+    - cd sample-application-backend
+    script:
+    - echo "Docker build ..."
+    - docker build  -t $DOCKER_LOGIN/backend .
+    - echo "Logging in to docker ... $DOCKER_LOGIN"
+    - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
+    - echo "docker push images..."
+    - docker push $DOCKER_LOGIN/backend
+
+  - stage: Build and push Backend Image
+    before_script:
+    - cd sample-application-backend
+    - echo "Logging in to docker..."
+    - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
+    - docker build -t $DOCKER_LOGIN/frontend .
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/.npm"
+
+services:
+  - docker
 ```
 
-- --add = add directly to travis.yml file
-- [env.global] --> specifies scope for newly created env variable
+Now, each push on github will trigger travis builds, which will trigger docker builds/pushes for both backend and frontend
