@@ -19,22 +19,21 @@ jobs:
     - npm install
     - echo "npm run test ..."
     - npm run test
-
-  - stage: "Package : Docker"
+  - stage: 'Package : Docker'
     before_script:
-      - cd sample-application-backend
+    - cd sample-application-backend
     script:
-      - echo "Docker build ..."
-      - docker-compose build
-      - echo "Logging in to docker ..."
-      - echo "$DOCKERPWD" | docker login -u "$DOCKERLOGIN" --password-stdin
-      - echo "docker-compose push ..."
-      - docker-compose push
+    - echo "Docker build ..."
+    - docker-compose build
+    - echo "Logging in to docker ..."
+    - echo "$DOCKERPWD" | docker login -u "$DOCKERLOGIN" --password-stdin
+    - echo "docker-compose push ..."
+    - docker-compose push
 cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.npm"
 env:
   global:
-  - secure: 0pLXvbGHL7U2WftWfTYxa1jzUnfEKQwZQQfY7jGDEbOc9jEdhrrogFL/LbbEkbDDvruJNOPgAeU3sr/XOh8Rrd264iElzSSO5R0oPGnpekgcwPxAE6EcYqVYoN7eneWSaG/Hjewo4OzCpsppOATKBeNaPLiTZwSMUZOzImgy0GUFyJtsTjCXW02iKVH32DbpsTdM0kmqrhTlZboUGF2NO8o2y4cYHkG9Fa1P8RhaMTvWc8qdhEtlc6OVIrWi47fEKWc+axHngktzaSVagvHapsjKADaMqKtCWRReAvzh0Ijo51FpElUnrkx7K6vbNDco/gwaaL2cKd2o918gQwEAchipwOl2dM/hJqQtP6uPfI7tfRhJH0o8VByBNKOGUp0lj0HiAl7bxB18kTg7UXv2/Gm6XYMJ2JBeAaKCB9skckyeafYUmTiLQe0sko+PyU4EyzZvw4vcbrM3bLjvwHRFbXB96eK6eejUL+Rp6yPMRZV/CfSmgXkAwjtVCyBKgkkAnkv8yAKXa1yE3fSC+W04bNETt1zuPcK+kgPjAaZFwglp0xWNfpQmjjOjfy03G+9fnHY6Qahhwf4h4kqvxn8YUfrwvuj3PT7RUPFtpw7sxD/uKhlNYekyQSYJHVyKBmhYPcyOwlk9YpxS3TlimF97Ria+KF7a/qbmFUUHy7cHzik=
-  - secure: uKfO3/mC1l0mVPDQgfV6dZCvJpHGKUnLA5ylYUIYeCQT5PXxFajMPGpbL9okuqzP+nLCfdkLu+HJSuuwTlzTWk6MKXeUTCAAKXipWG/NG3KcMT/LYcf+5aGnE+Su4zkB0xuCvDrDQeKJ9y7khSVmiTjXQEtZ8C9JXBspRhtQLh8boJNVLYRVpVBekPizM8QcReTfOvQy3VLe6I9mr8VXzDA81rugwqDNyV8O7tPefwEbu8PA68JTE9VJ3sNYqaHc9d+E6KpypsweTZBvMEsIqOYbDxb/QNspnOfqmnV6VW7n/afV6uCNFykHT3cAMtfTuDm/HWhCedjkPmEjJCDkLxxdYZ7lJ8H4nGMK3zhd/FMgZ46i8YmA5kxulMqR96GaleCRPD5lZ4HcNgPzyEOA39BBUqiIh3S/YmTS0IhvtyrtkQvmxBaXxXtvckLPPgAcNtRPq37nmt6VI2MKn+GQevJvo58EaA0RG2bsmwadyTxWrUI0QVZH3cB1s8d3GgcSxpqOVKNT07waJ6R9J+I3Quxi1I+LzvUfWNy/JXVcOZYb/LuGJsWaRhXOu/eRAb+A9U88G9xHHr7F0E+4EelYYoXiimKxpKQO7xgVj5Q01TACV1ZAsH72l7c0wXebN/ujUQfDz3E6kV/skYGmX0r7kEWVdTYOTgaGs1gEJOWvW7I=
+  - secure: lee3w2kflXjAhUUIFaDyP8l5Z+1JL09xk2PSPKbIqTDeHVvwOGuJQmgHrwd29JZ36CKd+sVQ78iDAY55vemo23UYpMv11WjIywg7X6yqdgHlB4zbqSnVouXaDnkxCL+RCJzUdxM1M8hvNaqqa4HawwWKbcvlH6+aa1z2qPG4FmzC+K9pB6ooqstT8VwsB6E7BkO2NNf0LAO8Kg7vdRsA6cksQuY1vOgptrCf85NR38AyEqTSNvqmSBhGCEeRhEiL/eGDdNOVeymcBiBo5gUXP41JjFqcx3tSk6HFAd4V2dF/EJpb8nTnH6emukLAY0CpjgVYRJf3z1zX/KvLkyCERgDpj1//6YiKD6D6AeDft+E9fSBZpUU1dN3kqHUiEYmaU7k0/KOD/eeCtOg3KaoQc4HYJJB0zkAXTVso9MKdmPLdO17JzkX6WGRXps7tv8M7Ex+pjxJafWz6OuAVSYCvjV6QxKPMCaPqQ4mvZ2049BqT6e2UQd14te0GzwQWmE677LWVwCWWpTp79ZoTK71AjGFXat3626gR5QIrNfDKoIVUv7/Zn3e4seDksFPYKnxKEnmkJvirG5ScFBgd8SIaFH1XPAm29wAGAqbQoUkQQeiPFBrPVp+Jq0K1Xb6nKYhSlaj7LUFtCTaPK1WG3ZpNtpsKd19BJLTCFif2T/rG8+4=
+  - secure: e3pubCM6cBPv8+mIw/0mcvWAjwq4SvV0DySXvCDSVPlPM8QXTr/CZADRIZzQ8BInRctkwNgSW9r2Bao1aHakvU8l7vQPPMUcGVdH9rbft03pBmOeStPacGeUntGct2ufnBoZBn5IqPJ27RoM7yNuehP5JT7cac3ikW4fM4/wH3L9iYoDmmTAV8N+ktTjNhMp+E2OEbflg/86afHqdpsSZDLatulrtR6mcOwwnVpVAAMeHzDMcN92BorYNLzW7alKXjEELXjtlcZ/CCVk0oc0zqqPbRBYZqF1s3ux9RBQ49R0D7vTg7o2Bkx4F2zc1wLmeXmWFm5tBhKf3p5xiQI6K8uncD4ZeXD7noEi57/v8CN6J5My03i74Pv1gt+1D04q6qT3nBXC8TFsqIF0b7xO/ODLw9Azb5CiUvKJxgjAR72Ce7vRVae88RIYpIru5iWCdN6SRwEvyyPOyinmmXP8V7BqVD/LA0oR6sYgtoxU73mf/HViWNYVrfhV9gw0XtciUmx4VQYY0ZBg4YUlyd/puxnZPjmtrkyu7+EiEMGMOoyUIHnFgPT/GKY1Hod3ZDx4M0ZbBMjHIgQM2BgOa6b5Js7tKH9zPJxTsdi197NKY/U8e0irnF/TVNmNNyoZmz5ruh3McL0X0AxF/KvFi8pDoQHh2jsGBMgMK6txf31rWUE=

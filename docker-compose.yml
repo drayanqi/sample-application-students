@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   backend:
-    container_name: backend
+    container_name: drayanqi/backend
     build: ./sample-application-backend
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/SchoolOrganisation
@@ -11,7 +11,7 @@ services:
       - database
 
   database:
-    container_name: database
+    container_name: drayanqi/database
     image: postgres:12.0-alpine
     networks:
       - app-network
@@ -21,7 +21,7 @@ services:
       - POSTGRES_DB=SchoolOrganisation
 
   frontend:
-    container_name: frontend
+    container_name: drayanqi/frontend
     build: ./sample-application-frontend
     ports:
       - "80:80"
