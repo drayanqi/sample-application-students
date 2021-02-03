@@ -1,8 +1,9 @@
 git:
   depth: 5
 stages:
-  - Build and Test Java
-  - Build and Test Nodejs
+  # - Build and Test Java
+  # - Build and Test Nodejs
+  - Docker
 jobs:
   include:
   - stage: Build and Test Java
@@ -22,7 +23,7 @@ jobs:
     - npm install
     - echo "npm run test ..."
     - npm run test
-  - stage: 'Package : Docker'
+  - stage: Docker
     services:
       - docker
     before_script:
