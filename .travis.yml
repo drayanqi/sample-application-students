@@ -30,14 +30,14 @@ jobs:
     - echo "Logging in to docker ... $DOCKER_LOGIN"
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
     - echo "docker push images..."
-    - docker push $DOCKER_LOGIN/backend
+    - docker push $DOCKER_LOGIN/frontend
   
   - stage: Build and push Backend Image
     before_script:
     - cd sample-application-backend
     - echo "Logging in to docker..."
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_LOGIN" --password-stdin
-    - docker build -t $DOCKER_LOGIN/frontend .
+    - docker build -t $DOCKER_LOGIN/backend .
 cache:
   directories:
   - "$HOME/.m2/repository"
